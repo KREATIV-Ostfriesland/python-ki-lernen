@@ -1,3 +1,9 @@
 # requirements.txt
 # Aktuell sind keine zusätzlichen Pakete notwendig.
 # Für zukünftige Erweiterungen (z.B. nltk, spaCy, scikit-learn) können hier die Pakete aufgeführt werden.
+
+#for chatbot
+nltk
+scikit-learn
+
+

@@ -1,18 +1,25 @@
 # chatbot.py
+import logging
+
+from ml_model import MLModel
+from nlp_utils import preprocess_text
 
 class ChatBot:
     def __init__(self):
-        # Hier können wir später Modelle laden oder Konfigurationen initialisieren
-        pass
+        # Initialisiere das ML-Modell und Logging
+        self.ml_model = MLModel()
+        logging.info("ChatBot: Initialisierung abgeschlossen.")
 
     def respond(self, message):
-        """
-        Eine einfache Logik, die auf Schlüsselwörtern basiert.
-        Diese Methode können wir später durch ML-basierte Ansätze erweitern.
-        """
-        if "hallo" in message.lower():
-            return "Hallo! Wie kann ich dir helfen?"
-        elif "hilfe" in message.lower():
-            return "Natürlich, ich stehe zur Verfügung. Was brauchst du?"
-        else:
-            return "Das ist interessant! Erzähl mir mehr."
+        # NLP-Vorverarbeitung der Eingabe
+        tokens = preprocess_text(message)
+        processed_text = " ".join(tokens)
+        
+        # Vorhersage der Antwort mithilfe des ML-Modells
+        response = self.ml_model.predict_response(processed_text)
+        
+        # Update des Modells mit der aktuellen Konversation (simpler Lernansatz)
+        self.ml_model.update_model(processed_text, response)
+        
+        logging.info(f"ChatBot: Eingabe: {message} | Vorverarbeitet: {processed_text} | Antwort: {response}")
+        return response
